@@ -11,7 +11,9 @@ const mysqlConnection = mysql.createConnection({
     database: process.env.DB_NAME
 });
 
+// CORS 
 app.use( cors() );
+
 
 mysqlConnection.connect((err) => {
     if( err ) {
