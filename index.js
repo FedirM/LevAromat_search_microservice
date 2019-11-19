@@ -27,6 +27,7 @@ function reflect( promise ) {
 
 
 app.post('/search', function (req, res) {
+    res.header('Access-Control-Allow-Credentials', true);
     if( !req.query.q || !req.query.priceType ) return res.sendStatus(400);
     reflect( new Promise((resolve, reject) => {
         mysqlConnection.query(`SELECT product.product_id, product.name FROM product, prices
