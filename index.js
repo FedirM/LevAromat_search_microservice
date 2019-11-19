@@ -51,7 +51,7 @@ AND (product.name LIKE '%${req.query.q}%' OR product.vendor LIKE '%${req.query.q
         if( mysqlRes.status === 'rejected' ){
             res.status(500).send('Pizdech na servere...');
         } else {
-            res.status(200).send( mysqlRes.value );
+            res.status(200).send( { amount: mysqlRes.value.length, array: mysql.value } );
         }
     })
 });
