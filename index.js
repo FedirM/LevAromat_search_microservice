@@ -1,4 +1,5 @@
 const express   = require('express');
+const cors      = require('cors');
 const mysql     = require('mysql');
 
 require('dotenv').config({ path: '.env' });
@@ -9,6 +10,8 @@ const mysqlConnection = mysql.createConnection({
     password: process.env.DB_PASS,
     database: process.env.DB_NAME
 });
+
+app.use( cors() );
 
 mysqlConnection.connect((err) => {
     if( err ) {
@@ -27,7 +30,6 @@ function reflect( promise ) {
 
 
 app.post('/search', function (req, res) {
-    res.header('Access-Control-Allow-Credentials', true);
     if( !req.query.q || !req.query.priceType ) return res.sendStatus(400);
     reflect( new Promise((resolve, reject) => {
         mysqlConnection.query(`SELECT product.product_id, product.name FROM product, prices
