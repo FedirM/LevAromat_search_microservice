@@ -38,7 +38,7 @@ app.get('/search', function (req, res) {
 WHERE product.product_id = prices.product_id
 AND prices.organisation_id = '${req.query.priceType}'
 AND prices.cost > 0
-AND (lower(product.name) LIKE '%${req.query.q}%' OR product.vendor LIKE '%${req.query.q}%' OR product.slug LIKE '%${req.query.q}%' OR lower(product.description) LIKE '%${req.query.q}%')`, (err, mysqlRes) => {
+AND (lower(product.name) LIKE '%${req.query.q.toLowerCase()}%' OR product.vendor LIKE '%${req.query.q.toLowerCase()}%' OR product.slug LIKE '%${req.query.q.toLowerCase()}%' OR lower(product.description) LIKE '%${req.query.q.toLowerCase()}%')`, (err, mysqlRes) => {
             if( err ){
                 console.log("ERR: ", err);
                 reject( err );
