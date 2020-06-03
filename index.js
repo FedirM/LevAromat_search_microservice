@@ -32,11 +32,11 @@ function reflect( promise ) {
 
 
 app.get('/search', function (req, res) {
-    if( !req.query.q || !req.query.priceType ) return res.sendStatus(400);
+    // if( !req.query.q || !req.query.priceType ) return res.sendStatus(400);
+    // AND prices.organisation_id = '${req.query.priceType}'
     reflect( new Promise((resolve, reject) => {
         mysqlConnection.query(`SELECT distinct(product.product_id), product.name FROM product, prices
 WHERE product.product_id = prices.product_id
-AND prices.organisation_id = '${req.query.priceType}'
 AND prices.cost > 0
 AND (lower(product.name) LIKE '%${req.query.q.toLowerCase()}%' OR product.vendor LIKE '%${req.query.q.toLowerCase()}%' OR product.slug LIKE '%${req.query.q.toLowerCase()}%' OR lower(product.description) LIKE '%${req.query.q.toLowerCase()}%')`, (err, mysqlRes) => {
             if( err ){
